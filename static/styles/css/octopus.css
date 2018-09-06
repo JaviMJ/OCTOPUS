@@ -1,0 +1,371 @@
+/*
+#############################################################################
+#	Copyright (C) 2018  													#
+#	Javier Mínguez @JaviMrSec y Luciano del Valle @lucdelcan 				#
+#	This program is free software: you can redistribute it and/or modify	#
+#	it under the terms of the GNU General Public License as published by    #
+#	the Free Software Foundation, either version 3 of the License, or       #
+#	(at your option) any later version.                                     #
+#	This program is distributed in the hope that it will be useful,			#
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of			#
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			#
+#	GNU General Public License for more details.                            #
+#	You should have received a copy of the GNU General Public Licens		#
+#	along with this program.  If not, see <http://www.gnu.org/licenses/>.	#
+#############################################################################
+*/
+
+/* OCTOPUS CSS */
+
+/* GLOBAL */
+
+body{
+  font-family: Roboto !important;
+}
+
+input:focus{
+	border-color: orange;
+    box-shadow: 0 0 0 0.2rem #FFE045;
+}
+
+#octopus_logo{
+	height: 100%;
+	width: 40%;
+}
+#octopus_login_logo{
+	margin: auto;
+}
+
+#box_logo{
+	width: 420px;
+	margin: auto;
+	margin-top: 3%;
+}
+
+#box_login{
+	width: 400px;
+	margin: auto;
+}
+
+
+#dendroid{
+	width: 40px;
+	height: 40px;
+	position: absolute;
+    top: 10px;
+    right: 7%;
+}
+
+.load{
+    display: none;
+    width:  80px;
+    float:  right;
+    margin-left: 80%;
+    position:  absolute;
+    bottom: 3%;
+    right: 1%;
+}
+
+.card_boton{
+   margin-right: 70%;
+   background: orange;
+   border-color: darkorange;
+}
+
+.card_boton:hover{
+   background-color:darkorange;
+   border-color: darkorange;
+}
+
+.card_boton:selection{
+   background-color:darkorange;
+}
+
+.card_checkbox{
+	margin-right: 1%;
+}
+
+.card_box{
+	margin-bottom: 3%;
+}
+
+.input_form{
+  width: 100% !important;
+}
+
+.submit_form{
+  margin-top: 3%;
+  font-size: 0.9em;
+
+}
+
+.card-header{
+  background-color: #343a40!important;
+}
+.card-header i{
+  color:white;
+}
+.card-header{
+  color:white;
+}
+
+.logout a{
+  color:white !important;;
+}
+
+.logout i{
+  color:white;
+}
+
+.form_check{
+	margin-right: 25%;
+}
+
+.form_group{
+	margin-right: 80%;
+	width: 100%;
+}
+
+.second_row{
+	margin-top: 1%;
+}
+.form-control:focus{
+    border-color: orange;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem #FFE045;
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.1rem #FFE045;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus{
+	box-shadow: 0 0 0 0.2rem orange;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: darkorange;
+    border-color: #F08A0F;
+}
+
+.btn-primary:hover {
+	background-color: orange;
+    border-color: orange;
+}
+
+#select_all_bots{
+	margin-left: 5%;
+}
+
+
+@media (min-width: 992px){
+.content-wrapper {
+    margin-left: 0px !important;
+}
+}
+
+/* LOADING */
+
+#octopus_gif{
+  margin: auto;
+  display:  block;
+  margin-right: 35%;
+}
+
+#loading_container{
+  background-color: #35435b;
+}
+#body_loading{
+  background-color: #35435b !important;
+}
+#loading_container h2{
+  margin-left: 28%;
+  margin-top: 10%;
+  color:white;
+  font-size: 1.5em;
+}
+/* NET SCANNER MODULE */
+
+#gif_cargando{
+    display: none;
+    width:  80px;
+    float:  right;
+    margin-left: 80%;
+}
+/* IOTSCAN MODULE*/
+#gif_iot{
+    display: none;
+    width:  80px;
+    float:  right;
+    margin-left: 80%;
+}
+
+
+/* RESULTS MODULE */
+
+#results{
+  margin-top:1%;
+}
+
+#results_body h3{
+  font-size:1.2em
+}
+
+/* SSH/FTP ATTACK MODULE */
+
+#ssh_module{
+  /* margin-top:1%; */
+}
+
+.select_form{
+  margin-bottom: 1%;
+}
+
+#form_check_ssh{
+	width: 50% !important;
+}
+
+
+#ssh_box{
+	margin-bottom: 3%;
+}
+
+#ssh_checkbox{
+	margin-right: 1%;
+}
+
+#load_ssh{
+    display: none;
+    width:  80px;
+    float:  right;
+    margin-left: 80%;
+}
+
+/* PAYLOAD MODULE */
+#select_files{
+  margin-right:90%;
+  margin-bottom:2%;
+  max-width: 100%;
+}
+
+#payload_box{
+  margin-top:2%;
+}
+
+
+/* UPLOAD MODULE */
+#file{
+max-width: 100%;
+}
+
+#payload_targets{
+	display: none;
+	margin-top: 2%;
+}
+
+.custom-file-label::after{
+	background-color:orange;
+	color:white;
+	border-color:darkorange;
+}
+
+/* BOT PANEL */
+
+.btn-bot{
+	float: right;
+	background: orange;
+	border-color: darkorange;
+	margin-left: 1%;
+}
+
+.btn-bot:hover{
+	background: darkorange;
+}
+
+.checkbox_table{
+	margin: 0 auto;
+	margin-left: 20%;
+}
+
+#modal_header{
+	background-color: #343a40 !important;
+}
+
+#modal_header h5{
+	text-align:center;
+	color:white;
+	margin:  auto;
+}
+
+#close_modal{
+	color: #606A75;
+	text-decoration: none;
+	margin: 1%;
+}
+
+#div-btn-panel{
+	width: auto;
+	margin: auto;
+	padding-left: 5%;
+}
+
+.btn-panel{
+	width:200px;
+	height: 200px;
+	margin: 1%;
+	font-size:  2em;
+	background: orange;
+	border-color: darkorange;
+}
+
+.btn-panel:hover{
+	background: darkorange;
+}
+
+.panel-div-form{
+	display: none;
+}
+
+.btn-card-block{
+	background: orange;
+    border-color: darkorange;
+	margin-top: 1%;
+}
+
+.btn-card-block:hover{
+	background: darkorange;
+    border-color: darkorange;
+}
+
+.btn-card-block:selection{
+   background-color:darkorange;
+}
+
+#back_modal{
+	display: none;
+	font-size: 1.6em;
+	color: #606A75;
+	margin-top: 1%;
+	cursor:pointer;
+}
+
+#select_load_div{
+	margin: auto;
+}
+
+#crypto_form_div input{
+	margin-bottom: 1%;
+}
+
+#bot_module{
+	min-height: 553px;
+	max-height: 553px;
+}
+
+/* MAP MODULE */
+
+#chartdiv {
+  width: 100%;
+  height: 200px;
+}

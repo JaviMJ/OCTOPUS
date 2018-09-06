@@ -1,0 +1,414 @@
+<!--
+
+#############################################################################
+#	Copyright (C) 2018  Javier Mínguez @JaviMrSec							#
+#	This program is free software: you can redistribute it and/or modify	#
+#	it under the terms of the GNU General Public License as published by    #
+#	the Free Software Foundation, either version 3 of the License, or       #
+#	(at your option) any later version.                                     #
+#	This program is distributed in the hope that it will be useful,			#
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of			#
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			#
+#	GNU General Public License for more details.                            #
+#	You should have received a copy of the GNU General Public Licens		#
+#	along with this program.  If not, see <http://www.gnu.org/licenses/>.	#
+#############################################################################
+
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Octopus Admin</title>
+	<link rel="shortcut icon" href="{{ url_for('static',filename='images/logo/logosimbolo_naranja_peq_uIa_icon.ico') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='styles/vendor/bootstrap/css/bootstrap.min.css') }}" />
+	<link rel="stylesheet" href="{{ url_for('static',filename='styles/vendor/font-awesome/css/font-awesome.min.css') }}" />
+	<link rel="stylesheet" href="{{ url_for('static',filename='styles/css/sb-admin.css') }}" />
+	<link rel="stylesheet" href="{{ url_for('static',filename='styles/css/octopus.css') }}" />
+	<link rel="stylesheet" href="{{ url_for('static',filename='styles/css/Roboto_font.css') }}" />
+	<link rel="stylesheet" href="{{ url_for('static',filename='styles/css/switches.css') }}" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<script src="{{ url_for('static',filename='js/octopus.js') }}"></script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='js/DataTables/datatables.min.css') }}" />
+	<script type="text/javascript" src="{{ url_for('static',filename='js/DataTables/datatables.min.js') }}"></script>
+	<script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+	<script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+	<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+	<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+	<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+
+
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+		<a class="navbar-brand" href="index"><img id="octopus_logo" src="static/images/logo/logo-blancoynaranja-430.png"/></a>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item dropdown">
+
+					<li class="nav-item logout">
+						<a class="nav-link" href="/logout">
+							<i class="fa fa-fw fa-sign-out"></i>Logout</a>
+					</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="content-wrapper" style="margin-left:0px;">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-6">
+
+					<!-- ******************* BOT PANEL ******************* -->
+					<div class="col-lg-12">
+						<div class="card h-100 mb-12 modules_container" id="bot_module">
+							<div class="card-header">
+								<i class="fa fa-reddit-alien"></i> Bot Panel
+								<button type="button" id="submit_bots" onclick="submit_bot_form" class="btn-bot btn btn-primary btn-sm">Run</button>
+								<button type="button" id="check_bots" onclick="check_bots" class="btn-bot btn btn-primary btn-sm">Update</button>
+
+							</div>
+
+							<div class="card-body">
+								<form class="modules_form form-inline navbar-form" id="bot_panel_form" name="bot_panel_form" method="POST" action="/ordersend">
+									<table class="table table-hover" id="bot_table">
+										<thead>
+											<tr>
+												<th scope="col">#</th>
+												<th scope="col">IP</th>
+												<th scope="col">OS</th>
+												<th scope="col">Location</th>
+												<th scope="col">SSH User</th>
+												<th scope="col">SSH Pass</th>
+												<th scope="col">Select<input type="checkbox" name="select_all_bots" id="select_all_bots"></input>
+												</th>
+											</tr>
+										</thead>
+										<tbody id="bot_table_body">
+
+										</tbody>
+									</table>
+								</form>
+							</div>
+							<div class="card-footer small text-muted" id="bot_footer"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal" tabindex="-1" id="prerun" role="dialog">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div id="modal_header" class="modal-header bg-info">
+								<i id="back_modal" class="fa fa-caret-left"></i>
+								<h5 id="modal-title-panel" class="modal-title">Choose an action</h5>
+								<a id="close_modal" href="#">X</a>
+							</div>
+							<div class="modal-body">
+								<div id="div-btn-panel">
+									<button type="button" id="bot_ddos" class="btn-panel btn btn-primary btn-sm"><i class="fa fa-crosshairs"></i><br/>DDOS</button>
+									<button type="button" id="bot_load_files" class="btn-panel btn btn-primary btn-sm"><i class="fa fa-cloud-upload"></i><br/>Load File</button>
+									<button type="button" id="bot_run" onclick="" class="btn-panel btn btn-primary btn-sm"><i class="fa fa-terminal"></i><br/>Run Script</button>
+									<button type="button" id="bot_crypto" onclick="" class="btn-panel btn btn-primary btn-sm"><i class="fa fa-btc"></i><br/>Cryptominer</button>
+								</div>
+								<div id="ddos_form_div" class="panel-div-form">
+									<div class="form-group form_group">
+										<input class="form-control input_form" id="ddos_panel_box" type="text" name="ddos_panel_box" placeholder="Enter the target" required>
+									</div>
+									<button id="btn_ddos_run" class="btn btn-primary btn-block btn-card-block">Launch</button>
+
+									<img class="load" src="static/images/gif_cargando.gif"></img>
+								</div>
+
+								<div id="load_form_div" class="panel-div-form">
+									<div id="select_load_div" class="form-group">
+										<select id="select_files_panel" name="select_files_panel" class="form-control select_form">
+											<option value="none"> - </option>
+										</select>
+									</div>
+									<button id="btn_load_run" class="btn btn-primary btn-block btn-card-block">Launch</button>
+
+									<img class="load" src="static/images/gif_cargando.gif"></img>
+								</div>
+
+								<div id="run_form_div" class="panel-div-form">
+									<div class="form-group form_group">
+										<input class="form-control input_form" id="run_panel_box" type="text" name="run_panel_box" placeholder="Enter the rute to the script" required>
+									</div>
+									<button id="btn_run_panel" class="btn btn-primary btn-block btn-card-block">Launch</button>
+									<img class="load" src="static/images/gif_cargando.gif"></img>
+									</form>
+								</div>
+
+								<div id="crypto_form_div" class="panel-div-form">
+									<div class="form-group form_group">
+										<select id="select_coin_panel" name="select_coin_panel" class="form-control select_form">
+											<option value="bitcoin"> Bitcoin </option>
+											<option value="litecoin"> Litecoin </option>
+										</select>
+										<input class="form-control input_form" id="crypto_panel_box_server" type="text" name="crypto_panel_box" placeholder="Enter the server" required>
+										<input class="form-control input_form" id="crypto_panel_box_user" type="text" name="crypto_panel_box" placeholder="Enter the user" required>
+										<input class="form-control input_form" id="crypto_panel_box_pass" type="text" name="crypto_panel_box" placeholder="Enter the password" required>
+									</div>
+									<button id="btn_crypto_panel" class="btn btn-primary btn-block btn-card-block">Launch</button>
+									<img class="load" src="static/images/gif_cargando.gif"></img>
+									</form>
+								</div>
+
+
+								<div class="modal-footer">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="row">
+								<!-- ******************* NETSCAN ******************* -->
+								<div class="col-lg-6">
+									<div class="card mb-6 modules_container" id="net_module">
+										<div class="card-header">
+											<i class="fa fa-globe"></i> Net scanner</div>
+										<div class="card-body">
+											<form class="modules_form form-inline navbar-form" id="net_form" name="net_form" method="POST" action="/netscan">
+												<div class="form-group form_group">
+													<input class="form-control input_form" id="net_box" type="text" name="net_box" placeholder="Enter the targets" required>
+												</div>
+												<input id="boton_buscador" type="submit" class="card_boton submit_form btn btn-md btn-primary m-b-20" value="Launch">
+
+												<img class="load" src="static/images/gif_cargando.gif"></img>
+											</form>
+										</div>
+										<div class="card-footer small text-muted" id="net_footer"></div>
+									</div>
+								</div>
+
+								<!-- ******************* UPLOAD FILES ******************* -->
+								<div class="col-lg-6">
+									<div class="card mb-6  modules_container" id="load_files_module">
+										<div class="card-header">
+											<i class="fa fa-cloud-upload"></i> Upload files to C&C</div>
+										<div class="card-body">
+											<form id="upload_file" method="POST" enctype="multipart/form-data">
+												<div class="custom-file">
+													<input type="file" class="custom-file-input" name="file" id="file">
+													<label id="label_file" class="custom-file-label" for="file">Choose file</label>
+												</div>
+
+												<button id="upload_file_btn" type="button" class="card_boton submit_form btn btn-md btn-primary m-b-20">Upload</button>
+											</form>
+											<img id="load_upload" class="load" src="static/images/gif_cargando.gif"></img>
+										</div>
+										<div class="card-footer small text-muted" id="load_files_footer"></div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="col-lg-12">
+							<div class="row">
+								<!-- ******************* PAYLOAD ******************* -->
+								<div class="col-lg-6 second_row">
+									<div class="card mb-6 modules_container" id="payload_module">
+										<div class="card-header">
+											<i class="fa fa-user-secret"></i> Scripts Load </div>
+										<div class="card-body">
+											<form class="modules_form form-inline navbar-form" id="payload_form" name="payload_form" method="POST" action="/payload">
+												<div class="form-group">
+													<label for="selec_files">Select a file</label>
+													<select id="select_files" name="select_files" class="form-control select_form">
+									<option value="none"> - </option>
+								</select>
+												</div>
+												<div class="form-check form_check">
+													<input type="checkbox" id="payload_user_run" class="form-check-input" name="payload_user_run" value="user_run">Run selected file (.py)
+												</div>
+												<div class="form-group form_group">
+													<input class="card_box form-control input_form" id="payload_box" type="text" name="payload_box" placeholder="Enter the targets" required>
+												</div>
+												<div class="form-group form_group">
+													<select id="payload_targets" name="payload_targets" class="card_box form-control select_form"></select>
+												</div>
+												<div class="form-check form_check">
+													<input type="checkbox" id="db_targets" class="form-check-input" name="db_targets" value="db_targets" onclick="check_target_db()"> Select target from db
+												</div>
+
+												<input id="payload_boton" type="submit" class="card_boton submit_form btn btn-md btn-primary m-b-20" value="Launch" onclick="pload()">
+												<img id="payload_load" class="load" src="static/images/gif_cargando.gif"></img>
+											</form>
+										</div>
+										<div class="card-footer small text-muted" id="payload_footer"></div>
+									</div>
+								</diV>
+
+
+
+								<!-- ******************* SSH/FTP ATTACK ******************* -->
+								<div class="col-lg-6 second_row">
+									<div class="card mb-6 modules_container h-100" id="ssh_module">
+										<div class="card-header">
+											<i class="fa fa-bomb"></i> SSH/FTP Brute</div>
+										<div class="card-body">
+											<form class="modules_form form-inline navbar-form" id="ssh_form" name="ssh_form" method="POST" action="/brute">
+												<label for="ssh_select">Select a file</label>
+												<div class="form-group form_group">
+													<select id="ssh_select" name="ssh_select" class="form-control select_form">
+														<option value="ssh">SSH</option>
+														<option value="ftp">FTP</option>
+													</select>
+												</div>
+												<label for="ssh_box">Enter the target</label>
+												<div class="form-group form_group">
+													<input class="form-control input_form" id="ssh_box" type="text" name="ssh_box" placeholder="Enter the targets" required>
+												</div>
+
+												<input type="checkbox" id="ssh_checkbox" name="ssh_checkbox" value="database" onclick="check_text_disabled()"> Find targets in database
+
+												<input id="boton_ssh" type="submit" class="card_boton submit_form btn btn-md btn-primary m-b-20" value="Launch">
+												<img class="load" src="static/images/gif_cargando.gif"></img>
+											</form>
+										</div>
+										<div class="card-footer small text-muted" id="ssh_footer"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-6">
+				</div>
+				<div class="col-lg-6">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="row">
+								<div class="col-lg-6">
+									<!-- ******************* IOTSCANNER ******************* -->
+									<div class="card mb-6 modules_container second_row" id="iot_module">
+										<div class="card-header">
+											<i class="fa fa-globe"></i> Botnet Map</div>
+										<div class="card-body">
+											<div id="chartdiv"></div>
+										</div>
+										<div class="card-footer small text-muted" id="iot_footer"></div>
+									</div>
+								</div>
+
+
+
+								<div class="col-lg-6">
+									<!-- ******************* IOTSCANNER ******************* -->
+									<div class="card mb-6 modules_container second_row" id="iot_module">
+										<div class="card-header">
+											<i class="fa fa-globe"></i> IOT scanner</div>
+										<div class="card-body">
+											<form class="modules_form form-inline navbar-form" id="iot_form" name="iotscanner_form" method="POST" action="/iotscan">
+												<div class="form-group form_group">
+													<input class="form-control input_form" id="iot_box" type="text" name="iot_box" placeholder="Enter the text" required>
+												</div>
+												<input id="boton_iot" type="submit" class="card_boton submit_form btn btn-md btn-primary m-b-20" value="Launch">
+
+												<img class="load" src="static/images/gif_cargando.gif"></img>
+											</form>
+										</div>
+										<div class="card-footer small text-muted" id="iot_footer"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="row">
+
+
+
+
+				<!-- ******************* PRINTER RESULTS ******************* -->
+
+				<div class="col-lg-12 modules_container" id="results">
+					<div class="card-header">
+						<i class="fa fa-info-circle"></i> Results</div>
+					<div class="card-body">
+
+						<div id="results_body">
+							{% if data %}
+							<p><b>Target:</b> {{data}}</p>
+							<p><b>Scan launched from:</b> {{nodo}}</p>
+							<p><b>Total scan time:</b> {{time}}</p>
+							<h3><b> Results:</b></h3>
+							<hr> {% for r in result: %}
+							<p><b>IP:</b> {{r['host']}}</p>
+							<p><b>OS:</b> {{r['os']}}</p>
+							<p><b>Location:</b> {{r['location']}}</p>
+							<p><b>Open ports:</b></p>
+							{% for k in r['open_ports'].keys(): %}
+							<p>{{k}} : {{r['open_ports'][k]}}</p>
+							{% endfor %}
+							<hr> {% endfor %} {% endif %} {% if data_brute %}
+							<p><b>Target:</b> {{target}}</p>
+							<p><b>Protocol:</b> {{protocol}}</p>
+							<p><b>Attack launched from:</b> {{nodo}}</p>
+							<p><b>Total attack time:</b> {{time}}</p>
+							<h3><b> Results:</b></h3>
+							<hr> {% for r in data_brute: %}
+							<p><b>Host:</b> {{r[0]}}</p>
+							<p><b>User:</b> {{r[1]}}</p>
+							<p><b>Password:</b>{{r[2]}}</p>
+							{% endfor %} {% endif %} {% if data_payload %}
+							<h3><b> Results:</b></h3>
+							<p><b>Target:</b> {{data_payload}}</p>
+							<p><b>OS:</b> {{os}}</p>
+							<p><b>Protocol:</b> {{protocol}}</p>
+							<p><b>Scripts Load launched from:</b> {{nodo}}</p>
+							<p><b>Total time:</b> {{time}}</p>
+							{% endif %} {% if load_cc_files %}
+							<p><b>Target:</b> {{data_payload}}</p>
+							<h3><b> Results of load_files:</b></h3>
+							<hr>
+							<p><b>Host:</b> {{data_payload}}</p>
+							<p><b>Load files:</b> {{load_cc_files}}</p>
+							{% endif %} {% if run_user_files %}
+							<p><b>Run files:</b> {{run_user_files}}</p>
+							{% endif %} {% if run_payload %}
+							<h3><b> Results of send connection scripts:</b></h3>
+							<hr>
+							<p><b>Host:</b> {{data_payload}}</p>
+							<p><b>Load files:</b> {{load_files}}</p>
+							<p><b>Run connection:</b> {{run_payload}}</p>
+							{% endif %}{% if iotdata %}
+							<p><b>Objetive:</b> {{iotdata}}
+								<h3><b> Results:</b></h3>
+								<hr> {% for r in result: %}
+								<p><b>Host:</b> {{r['host']}}</p>
+								<p><b>Open ports:</b> {{r['open_ports']}}</p>
+								{% endfor %}
+								<p><b>Total iot time:</b> {{time}}</p>
+								{% endif %}
+
+
+						</div>
+
+					</div>
+					<div class="card-footer small text-muted"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

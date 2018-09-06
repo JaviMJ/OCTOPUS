@@ -1,0 +1,71 @@
+<!--
+
+#############################################################################
+#	Copyright (C) 2018  Javier Mínguez @JaviMrSec							#
+#	This program is free software: you can redistribute it and/or modify	#
+#	it under the terms of the GNU General Public License as published by    #
+#	the Free Software Foundation, either version 3 of the License, or       #
+#	(at your option) any later version.                                     #
+#	This program is distributed in the hope that it will be useful,			#
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of			#
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			#
+#	GNU General Public License for more details.                            #
+#	You should have received a copy of the GNU General Public Licens		#
+#	along with this program.  If not, see <http://www.gnu.org/licenses/>.	#
+#############################################################################
+
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Octopus Login</title>
+	<link rel="shortcut icon" href="{{ url_for('static',filename='images/logo/logosimbolo_naranja_peq_uIa_icon.ico') }}">
+	<link href="{{ url_for('static',filename='styles/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static',filename='styles/vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static',filename='styles/css/sb-admin.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static',filename='styles/css/octopus.css') }}" rel="stylesheet" />
+</head>
+
+<body class="bg-dark">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div id="box_logo">
+					<img id="octopus_login_logo" src="static/images/logo/logo-blancoynaranja-430.png" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div id="div_login" class="col-lg-12">
+				<div id="box_login" class="card card-login mt-5">
+					<div class="card-header">Login</div>
+					<div class="card-body">
+						<form action="/login" method="POST" class="form">
+							<div class="form-group">
+								<label for="exampleInputEmail1">User</label>
+								<input class="form-control" id="login_user" name="username" type="text" autocomplete="off" placeholder="Enter user">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Password</label>
+								<input class="form-control" id="login_pass" autocomplete="off" type="password" name="password" placeholder="Enter password">
+							</div>
+
+							<input class="btn btn-primary btn-block card_boton" type="submit" value="Login" id="login_btn">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
