@@ -1,4 +1,4 @@
-Flask==1.0.2
+Flask==2.3.2
 flask-login==0.4.1
 flask-socketio==3.0.0
 pymongo==3.6.1
